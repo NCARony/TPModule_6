@@ -84,9 +84,7 @@ namespace TP1_Module_6.Controllers
         {
             if (ModelState.IsValid)
             {
-                var armeDb = db.Armes.Find(arme.Id);
-                armeDb.Nom = arme.Nom;
-                armeDb.Degats = arme.Degats;
+                db.Entry(arme).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

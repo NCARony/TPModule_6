@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Data.Entity;
+using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using BO;
@@ -37,6 +38,7 @@ namespace TP1_Module_6.Controllers
         {
             var vm = new SamouraiVM();
             vm.Armes = db.Armes.ToList();
+            vm.ArtMartials = db.ArtMartials.ToList();
             return View(vm);
         }
 
@@ -53,6 +55,12 @@ namespace TP1_Module_6.Controllers
                 {
                     vm.Samourai.Arme = db.Armes.FirstOrDefault(a => a.Id == vm.IdSelectedArme.Value);
                 }
+
+                if (vm.IdSelectedArtMartial.HasValue)
+                {
+                    vm.Samourai.ArtMartials = db.ArtMartials.FirstOrDefault(am => am.Id == vm.IdSelectedArtMartial.Value);
+                }
+
                 db.Samourais.Add(vm.Samourai);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -68,18 +76,13 @@ namespace TP1_Module_6.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Samourai samourai = db.Samourais.Find(id);
-            if (samourai == null)
+            SamouraiVM vm = new SamouraiVM();
+            vm.Samourai = db.Samourais.Find(id);
+            if (vm.Samourai == null)
             {
                 return HttpNotFound();
             }
-            var vm = new SamouraiVM();
             vm.Armes = db.Armes.ToList();
-            vm.Samourai = samourai;
-            if(samourai.Arme != null)
-            {
-                vm.IdSelectedArme = samourai.Arme.Id;
-            }
             return View(vm);
         }
 
@@ -92,18 +95,25 @@ namespace TP1_Module_6.Controllers
         {
             if (ModelState.IsValid)
             {
-                var samouraidb = db.Samourais.Find(vm.Samourai.Id);
-                samouraidb.Force = vm.Samourai.Force;
-                samouraidb.Nom = vm.Samourai.Nom;
-                samouraidb.Arme = null;
-                if (vm.IdSelectedArme.HasValue)
+/*                var samourai = db.Samourais.Find(vm.Samourai.Id);
+                samourai.Nom = vm.Samourai.Nom;
+                samourai.Force = vm.Samourai.Force;*/
+
+                db.Samourais.Attach(vm.Samourai);
+
+
+                if (vm.IdSelectedArme != null)
                 {
-                    samouraidb.Arme = db.Armes.FirstOrDefault(a => a.Id == vm.IdSelectedArme.Value);
+                    vm.Samourai.Arme = db.Armes.FirstOrDefault(a => a.Id == vm.IdSelectedArme.Value);
                 }
+                else
+                {
+                    vm.Samourai.Arme = null;
+                }
+                db.Entry(vm.Samourai).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            vm.Armes = db.Armes.ToList();
             return View(vm);
         }
 

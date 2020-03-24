@@ -1,6 +1,8 @@
-﻿using System;
+﻿using BO;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Web;
 
@@ -19,8 +21,19 @@ namespace TP1_Module_6.Data
         {
         }
 
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            /*            modelBuilder.Entity<Samourai>().HasOptional(a => a.Arme).WithRequired();*/
+            modelBuilder.Entity<Samourai>().HasMany(am => am.ArtMartials).WithMany();
+            base.OnModelCreating(modelBuilder);
+        }
+
         public System.Data.Entity.DbSet<BO.Arme> Armes { get; set; }
 
         public System.Data.Entity.DbSet<BO.Samourai> Samourais { get; set; }
+
+        public System.Data.Entity.DbSet<BO.ArtMartial> ArtMartials { get; set; }
     }
 }

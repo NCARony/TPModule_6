@@ -127,23 +127,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ArmesController.cs" />
+    <Compile Include="Controllers\ArtMartialsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SamouraisController.cs" />
     <Compile Include="Data\TpMd6Context.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003231047196_InitialCreate.cs" />
-    <Compile Include="Migrations\202003231047196_InitialCreate.Designer.cs">
-      <DependentUpon>202003231047196_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003231053207_second.cs" />
-    <Compile Include="Migrations\202003231053207_second.Designer.cs">
-      <DependentUpon>202003231053207_second.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003231125065_changemn armes.cs" />
-    <Compile Include="Migrations\202003231125065_changemn armes.Designer.cs">
-      <DependentUpon>202003231125065_changemn armes.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\SamouraiVM.cs" />
@@ -197,6 +186,11 @@
     <Content Include="Views\Samourais\Index.cshtml" />
     <Content Include="Views\Samourais\_SamuraiForm.cshtml" />
     <Content Include="Views\Samourais\_SamuraiView.cshtml" />
+    <Content Include="Views\ArtMartials\Create.cshtml" />
+    <Content Include="Views\ArtMartials\Delete.cshtml" />
+    <Content Include="Views\ArtMartials\Details.cshtml" />
+    <Content Include="Views\ArtMartials\Edit.cshtml" />
+    <Content Include="Views\ArtMartials\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -219,17 +213,6 @@
       <Project>{0bba0441-0ab7-4112-946b-521c9cec7367}</Project>
       <Name>BO</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202003231047196_InitialCreate.resx">
-      <DependentUpon>202003231047196_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003231053207_second.resx">
-      <DependentUpon>202003231053207_second.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003231125065_changemn armes.resx">
-      <DependentUpon>202003231125065_changemn armes.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
